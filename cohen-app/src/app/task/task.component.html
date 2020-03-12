@@ -1,0 +1,34 @@
+<div class="task-component p-2">
+    <table>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" class="form-control" [(ngModel)]="task.name" /></td>
+        </tr>
+        <tr>
+            <td>Due Date:</td>
+            <td>
+                <input type="text" placeholder="Choose date" class="form-control" bsDatepicker [(ngModel)]="task.dueDate">
+            </td>
+        </tr>
+        <tr>
+            <td>Priority:</td>
+            <td>
+                <select [(ngModel)]="task.priority">
+                    <option *ngFor="let priority of Priority | keyvalue">
+                        {{ priority.key }}
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Complete:</td>
+            <td>
+                <input type="checkbox" [(ngModel)]="task.complete" />
+            </td>
+        </tr>
+        <td colspan="2" class="text-right">
+            <button class="btn btn-primary" (click)="cancelClick()">cancel</button>
+            <button class="btn btn-primary" [disabled]="!task.name || !task.dueDate" (click)="upsertTask()">submit</button>
+        </td>
+    </table>
+</div>

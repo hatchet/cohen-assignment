@@ -1,0 +1,28 @@
+<div class="to-do-container p-2">
+    <h5>ToDo</h5>
+    <table class="to-do-table">
+        <tr *ngFor="let toDo of toDoService.getToDoList()" [ngClass]="{'strikethrough': allTasksComplete(toDo)}">
+            <td class="name" (click)="navigateToTaskList(toDo)">{{ toDo.name }}</td>
+            <td>
+                 <span *ngIf="toDo.taskList">
+                    (
+                        {{ getCompletedTaskListCount(toDo) }} 
+                        /
+                        {{ toDo.taskList.length }}
+                    )
+                </span>
+            </td>
+            <td>
+                <i *ngIf="!allTasksComplete(toDo)" (click)="deleteToDo(toDo)" class="fas fa-trash"></i>
+            </td>
+        </tr>
+    </table>
+    <div class="new-to-do mt-2">
+        <button class="btn btn-primary" *ngIf="!creatingNewToDo" (click)="creatingNewToDo = true">+</button>
+        <ng-container *ngIf="creatingNewToDo">
+            <input type="text" class="form-control" placeholder="ToDo Name" aria-label="ToDo Name" aria-describedby="basic-addon2" [(ngModel)]="newToDoName" />
+            <button class="btn btn-primary" (click)="createToDo(); creatingNewToDo = false;">create</button>
+            <button class="btn btn-primary" (click)="creatingNewToDo = false">cancel</button>
+        </ng-container>
+    </div>
+</div>

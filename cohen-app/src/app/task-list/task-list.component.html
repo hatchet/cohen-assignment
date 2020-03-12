@@ -1,0 +1,27 @@
+<div class="task-list-component p-2">
+    <div *ngIf="toDo" class="list-container">
+        <h5>{{toDo.name}}</h5>
+        <table *ngIf="toDo.taskList" class="task-list-table">
+            <tr *ngFor="let task of toDo.taskList" [ngClass]="{'strikethrough': task.complete}">
+                <td class="edit">
+                    <i *ngIf="!task.complete" class="fas fa-pencil-alt" (click)="editTask(task)"></i>
+                </td>
+                <td class="name">
+                    {{ task.name }}
+                </td>
+                <td class="date">
+                    {{ task.dueDate | date: 'shortDate' }}
+                </td>
+                <td class="priority">
+                    <i class="fas" [ngClass]="{'fa-arrow-up': task.priority === Priority.high, 'fa-arrow-down': task.priority === Priority.low, 'fa-minus': task.priority === Priority.medium}"></i>
+                </td>
+                <td class="delete">
+                    <i *ngIf="!task.complete" (click)="deleteTask(task)" class="fas fa-trash"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="my-2">
+        <button class="btn btn-primary" (click)="addTask()">+</button> <a [routerLink]="['/to-do']">view all todos</a>
+    </div>
+</div>
